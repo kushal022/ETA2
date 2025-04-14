@@ -4,10 +4,14 @@ const cors = require('cors');
 const morgan = require('morgan')
 const colors = require('colors');
 const dotenv = require('dotenv');
+const connectDb = require('./config/connectDb');
 
 
 dotenv.config();
 const PORT = process.env.PORT || 3500;
+
+//Connect DB
+connectDb();
 
 //Middlewares:
 app.use(morgan('dev'))
