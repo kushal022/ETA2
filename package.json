@@ -1,14 +1,21 @@
 {
-  "name": "backend",
+  "name": "ETA2-backend",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "server": "nodemon index.js"
   },
-  "author": "kushla jandgid",
+  "author": "kushal jangid",
   "license": "ISC",
-  "description": "",
+  "description": "expanse tracker app backend",
   "dependencies": {
-    "express": "^5.1.0"
+    "colors": "^1.4.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "mongoose": "^8.13.2",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.9"
   }
 }
