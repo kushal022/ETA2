@@ -20,6 +20,7 @@ app.use(express.json());
 
 //import routes:
 const userRoutes = require('./routes/userRoute');
+const transactionRoutes = require('./routes/transactionRoute');
 
 //Routes
 app.get('/',(req,res)=>{
@@ -27,6 +28,7 @@ app.get('/',(req,res)=>{
 })
 
 app.use('/api/v1/user', userRoutes);
+app.use('/api/v1/transaction', transactionRoutes);
 
 //Server Listen
 app.listen(PORT , ()=>{
