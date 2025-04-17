@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {Form, Input, message} from 'antd'
 import {Link, useNavigate} from 'react-router-dom'
 import Loader from '../components/Loader';
@@ -22,15 +22,23 @@ const Login = () => {
       localStorage.setItem('username',res.data.username)
       localStorage.setItem('email',res.data.email)
       localStorage.setItem('token',res.data.token)
-      alert(res.data.message)
+      message.success(res.data.message)
       navigate('/')
     } catch (error) {
       setLoading(false)
       console.log(error)
-      alert(error.response.data.message)
+      message.success(error.response.data.message)
       
     }
   }
+
+  //Prevent for login user if logged in:
+    useEffect(()=>{
+      if(localStorage.getItem('username')){
+        navigate('/')
+      }
+    },[navigate])
+
   return (
     <>
         <div className="register-page vh-100 d-flex justify-content-center align-items-center h">

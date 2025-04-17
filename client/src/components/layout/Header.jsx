@@ -1,9 +1,33 @@
-import React from "react";
+import { message } from "antd";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const [IsLogIn, setIsLogIn] = useState(false);
+  const [User, setUser] = useState('')
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+    // const user = JSON.parse(localStorage.getItem('username'));
+    const user = (localStorage.getItem('username'));
+    if(user){
+      setUser(user)
+      setIsLogIn(true);
+    } else{
+      setIsLogIn(false)
+    }
+  },[])
+
+  //* handlerLogOut
+  const handlerLogOut =()=>{
+    localStorage.removeItem('username')
+    message.success('Logout Successfully')
+    navigate('/login')
+  }
+
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <nav className="navbar navbar-expand-lg bg-body-tertiary ">
         <div className="container-fluid">
           <button
             className="navbar-toggler"
@@ -22,9 +46,9 @@ const Header = () => {
             </a>
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">
+                <Link to='/' className="nav-link active" aria-current="page">
                   Home
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#">
@@ -37,17 +61,17 @@ const Header = () => {
                 </a>
               </li>
             </ul>
-            <form className="d-flex" role="search">
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button className="btn btn-outline-success" type="submit">
-                Search
-              </button>
-            </form>
+            <div className="h-100 d-flex gap-4 align-items-center justify-content-center ">
+              { IsLogIn ? 
+              <>
+                <p className="h-100 text-capitalize text-success fw-bold">{User}</p>
+                <button onClick={handlerLogOut} className="btn btn-dark">Logout</button>
+              </>:<>
+                <button className="btn btn-dark">Login</button>
+                <button className="btn btn-bg-primary">Signup</button>
+              </>  
+            }
+            </div>            
           </div>
         </div>
       </nav>
