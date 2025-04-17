@@ -18,10 +18,15 @@ app.use(morgan('dev'))
 app.use(cors());
 app.use(express.json());
 
+//import routes:
+const userRoutes = require('./routes/userRoute');
+
 //Routes
 app.get('/',(req,res)=>{
     res.send("Hello from Home Page")
 })
+
+app.use('/api/v1/user', userRoutes);
 
 //Server Listen
 app.listen(PORT , ()=>{

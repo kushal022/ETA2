@@ -1,7 +1,7 @@
 const express = require('express');
 
 //router object:
-const router = express.router();
+const router = express.Router();
 
 //Controllers:
 const {loginCtrl, registerCtrl} = require('../controllers/userCtrl')

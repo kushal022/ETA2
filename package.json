@@ -5,18 +5,20 @@
   "scripts": {
     "start": "node index.js",
     "server": "nodemon index.js",
-    "client":"npm run dev --prefix client",
+    "client": "npm run dev --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\" "
   },
   "author": "kushal jangid",
   "license": "ISC",
   "description": "expanse tracker app backend",
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "colors": "^1.4.0",
     "concurrently": "^9.1.2",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.13.2",
     "morgan": "^1.10.0",
     "nodemon": "^3.1.9"
