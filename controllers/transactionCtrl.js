@@ -4,8 +4,9 @@ const moment = require('moment')
 //todo: ------------------ Get All Transaction Ctrl ----------------
 const getAllTransactionCtrl = async(req,res)=>{
     try {
-        const {Freq,selectDate} = req.body
+        const {Freq,selectDate,type} = req.body
         const transactions = await transactionModel.find({
+            //* Condition for Date filter:
             ...(Freq !== 'custom'?{
                 date:{
                     $gt:moment().subtract(Number(Freq),'d').toDate(),
@@ -18,6 +19,8 @@ const getAllTransactionCtrl = async(req,res)=>{
             })
             ,
             userId:req.body.userId,
+            //* Condition for Type:
+            ...(type !== 'all' && { type})
         });
         res.status(200).json(transactions)
         

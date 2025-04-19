@@ -11,6 +11,7 @@ const Home = () => {
   const [AllTransactions, setAllTransactions] = useState([])
   const [Freq, setFreq] = useState('7')
   const [selectDate, setSelectDate] = useState([])
+  const [type, setType] = useState('all')
 
   //Form Submit: Add transaction 
   const handleSubmitForm = async (values)=>{
@@ -39,9 +40,9 @@ const Home = () => {
         setLoading(true);
         const user = JSON.parse(localStorage.getItem('user'))
         const res = await axios.post('http://localhost:3500/api/v1/transaction/getAllTransaction',
-          {userId: user.id,Freq,selectDate}
+          {userId: user.id,Freq,selectDate,type}
         )
-        console.log(res.data)
+        // console.log(res.data)
         setAllTransactions(res.data)
       } catch (error) {
         console.log(error)
@@ -49,7 +50,7 @@ const Home = () => {
       }
     }
     handlerGetAllTransaction()
-  },[Freq])
+  },[Freq,selectDate,type])
 
   //Table Data:
   const columns = [
@@ -87,6 +88,20 @@ const Home = () => {
             <Select.Option value='30'>Last 1 Month</Select.Option>
             <Select.Option value='365'>Last 1 Year</Select.Option>
             <Select.Option value='custom'>Custom</Select.Option>
+          </Select>
+          {Freq === 'custom' &&
+            <RangePicker 
+              value={selectDate} 
+              onChange={(value)=>setSelectDate(value)}
+            />
+          }
+        </div>
+        <div>
+          <h6>Select Type</h6>
+          <Select value={type} onChange={(value)=>setType(value)}>
+            <Select.Option value='all'>ALL</Select.Option>
+            <Select.Option value='income'>INCOME</Select.Option>
+            <Select.Option value='expense'>EXPENSE</Select.Option>
           </Select>
           {Freq === 'custom' &&
             <RangePicker 
