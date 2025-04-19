@@ -18,10 +18,11 @@ const Login = () => {
       )
       setLoading(false)
       console.log(res)
-      localStorage.setItem('id',res.data.id)
-      localStorage.setItem('username',res.data.username)
-      localStorage.setItem('email',res.data.email)
-      localStorage.setItem('token',res.data.token)
+      // localStorage.setItem('id',res.data.id)
+      // localStorage.setItem('username',res.data.username)
+      // localStorage.setItem('email',res.data.email)
+      // localStorage.setItem('token',res.data.token)
+      localStorage.setItem('user',JSON.stringify(res.data))
       message.success(res.data.message)
       navigate('/')
     } catch (error) {
@@ -34,7 +35,7 @@ const Login = () => {
 
   //Prevent for login user if logged in:
     useEffect(()=>{
-      if(localStorage.getItem('username')){
+      if(localStorage.getItem('user')){
         navigate('/')
       }
     },[navigate])

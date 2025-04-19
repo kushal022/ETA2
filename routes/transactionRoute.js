@@ -11,8 +11,8 @@ const {
 
 
 //todo:->>>>> Routes
-//todo: -------------- Get || Get All Transaction Route -----------------
-router.post('/getTransaction',getAllTransactionCtrl)
+//todo: -------------- Post || Get All Transaction Route -----------------
+router.post('/getAllTransaction',getAllTransactionCtrl)
 
 //todo: -------------- Post || Add Transaction Route -----------------
 router.post('/addTransaction',addTransactionCtrl)

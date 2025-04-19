@@ -1,26 +1,110 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from '../components/layout/Layout'
-import { Button, Form, Input, Modal, Select } from 'antd'
+import { Button, Form, Input, message, Modal, Select, Table, DatePicker } from 'antd'
+import axios from 'axios'
+const {RangePicker} = DatePicker;
+import moment from 'moment';
 
 const Home = () => {
   const [IsModalOpen,setIsModalOpen] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [AllTransactions, setAllTransactions] = useState([])
+  const [Freq, setFreq] = useState('7')
+  const [selectDate, setSelectDate] = useState([])
 
-  //Form Submit
-  const handleSubmitForm = (values)=>{
-    console.log(values)
+  //Form Submit: Add transaction 
+  const handleSubmitForm = async (values)=>{
+    try {
+      const user = JSON.parse(localStorage.getItem('user'))
+      setLoading(true)
+      const res = await axios.post('http://localhost:3500/api/v1/transaction/addTransaction',
+        {...values, userId: user.id}
+      )
+      // console.log(res.data)
+      setLoading(false)
+      message.success(res.data.message)
+      setIsModalOpen(false)
+    } catch (error) {
+      console.log(error)
+      message.error(error.response.data.message)
+    }
   }
 
-  //
+  //Get all transactions:
+  
+
+  useEffect(()=>{
+    const handlerGetAllTransaction =async()=>{
+      try {
+        setLoading(true);
+        const user = JSON.parse(localStorage.getItem('user'))
+        const res = await axios.post('http://localhost:3500/api/v1/transaction/getAllTransaction',
+          {userId: user.id,Freq,selectDate}
+        )
+        console.log(res.data)
+        setAllTransactions(res.data)
+      } catch (error) {
+        console.log(error)
+        // message.error(error.response.message)
+      }
+    }
+    handlerGetAllTransaction()
+  },[Freq])
+
+  //Table Data:
+  const columns = [
+    {
+      title:'Date',
+      dataIndex:'date',
+      render: (text)=> <span>{moment(text).format('YYYY-MM-DD')}</span>
+    },{
+      title:'Amount',
+      dataIndex:'amount'
+    },{
+      title:'Type',
+      dataIndex:'type'
+    },{
+      title:'Category',
+      dataIndex:'category'
+    },{
+      title:'Reference',
+      dataIndex:'reference'
+    },{
+      title:'Description',
+      dataIndex:'description'
+    },{
+      title:'Actions',
+    }
+  ]
+
   return (
     <Layout>
       <div className="filters d-flex align-items-center justify-content-between py-3 px-4 shadow ">
-        <div>Range Filters</div>
+        <div>
+          <h6>Select Frequency</h6>
+          <Select value={Freq} onChange={(value)=>setFreq(value)}>
+            <Select.Option value='7'>Last 1 Week</Select.Option>
+            <Select.Option value='30'>Last 1 Month</Select.Option>
+            <Select.Option value='365'>Last 1 Year</Select.Option>
+            <Select.Option value='custom'>Custom</Select.Option>
+          </Select>
+          {Freq === 'custom' &&
+            <RangePicker 
+              value={selectDate} 
+              onChange={(value)=>setSelectDate(value)}
+            />
+          }
+        </div>
         <div>
           <button onClick={()=>setIsModalOpen(true)}
-           className='btn btn-primary'>Add New</button>
+           className='btn btn-primary'>
+            Add New
+          </button>
         </div>
       </div>
-      <div className="content"></div>
+      <div className="content">
+        <Table columns={columns} dataSource={AllTransactions}/>
+      </div>
       <Modal 
         title='Add Transaction' 
         open={IsModalOpen} 
