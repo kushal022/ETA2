@@ -156,6 +156,7 @@ const Home = () => {
             </Form.Item>
             <Form.Item label='Category' name='category'>
               <Select>
+                <Select.Option value='salary'>Salary</Select.Option>
                 <Select.Option value='tip'>Tip</Select.Option>
                 <Select.Option value='project'>Project</Select.Option>
                 <Select.Option value='food'>Food</Select.Option>
