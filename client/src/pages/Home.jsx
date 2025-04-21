@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Layout from '../components/layout/Layout'
 import { Button, Form, Input, message, Modal, Select, Table, DatePicker } from 'antd'
+import {UnorderedListOutlined, AreaChartOutlined} from '@ant-design/icons'
 import axios from 'axios'
 const {RangePicker} = DatePicker;
 import moment from 'moment';
+import Chart from '../components/Chart'
 
 const Home = () => {
   const [IsModalOpen,setIsModalOpen] = useState(false)
@@ -12,6 +14,7 @@ const Home = () => {
   const [Freq, setFreq] = useState('7')
   const [selectDate, setSelectDate] = useState([])
   const [type, setType] = useState('all')
+  const [ViewData, setViewData] = useState('table')
 
   //Form Submit: Add transaction 
   const handleSubmitForm = async (values)=>{
@@ -110,6 +113,12 @@ const Home = () => {
             />
           }
         </div>
+        <div className='mx-2 p-2 shadow-sm border border-black border-1 rounded-1'>
+            <UnorderedListOutlined onClick={()=>setViewData('table')}  
+                className={`mx-2 fs-5  ${ViewData==='table'? 'text-primary': 'text-secondary'}`}/>
+            <AreaChartOutlined onClick={()=>setViewData('chart')} 
+                className={`mx-2 fs-5  ${ViewData!=='table'? 'text-primary': 'text-secondary'}`}/> 
+          </div>
         <div>
           <button onClick={()=>setIsModalOpen(true)}
            className='btn btn-primary'>
@@ -118,7 +127,12 @@ const Home = () => {
         </div>
       </div>
       <div className="content">
-        <Table columns={columns} dataSource={AllTransactions}/>
+        {
+          ViewData==='table'? 
+          <Table columns={columns} dataSource={AllTransactions}/>
+          :
+          <Chart allTransactions={AllTransactions}/>
+        }
       </div>
       <Modal 
         title='Add Transaction' 
