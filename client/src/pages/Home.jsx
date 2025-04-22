@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Layout from '../components/layout/Layout'
 import { Button, Form, Input, message, Modal, Select, Table, DatePicker } from 'antd'
-import {UnorderedListOutlined, AreaChartOutlined} from '@ant-design/icons'
+import {UnorderedListOutlined, AreaChartOutlined, EditOutlined, DeleteOutlined} from '@ant-design/icons'
 import axios from 'axios'
 const {RangePicker} = DatePicker;
 import moment from 'moment';
@@ -15,19 +15,31 @@ const Home = () => {
   const [selectDate, setSelectDate] = useState([])
   const [type, setType] = useState('all')
   const [ViewData, setViewData] = useState('table')
+  const [Edit, setEdit] = useState(null)
 
   //Form Submit: Add transaction 
   const handleSubmitForm = async (values)=>{
     try {
       const user = JSON.parse(localStorage.getItem('user'))
       setLoading(true)
-      const res = await axios.post('http://localhost:3500/api/v1/transaction/addTransaction',
-        {...values, userId: user.id}
-      )
+      if(Edit){
+        const res = await axios.put('http://localhost:3500/api/v1/transaction/editTransaction',
+          {
+            payload: {...values, userId: user.id},
+            transactionId: Edit._id
+          });
+        message.success(res.data.message)
+        setLoading(false)
+      }else{
+        const res = await axios.post('http://localhost:3500/api/v1/transaction/addTransaction',
+          {...values, userId: user.id}
+        );
+        message.success(res.data.message)
+        setLoading(false)
+      }
       // console.log(res.data)
-      setLoading(false)
-      message.success(res.data.message)
       setIsModalOpen(false)
+      setEdit(null)
     } catch (error) {
       console.log(error)
       message.error(error.response.data.message)
@@ -35,7 +47,6 @@ const Home = () => {
   }
 
   //Get all transactions:
-  
 
   useEffect(()=>{
     const handlerGetAllTransaction =async()=>{
@@ -78,6 +89,18 @@ const Home = () => {
       dataIndex:'description'
     },{
       title:'Actions',
+      render: (text,record) =>(
+        <div className='d-flex gap-5'>
+          <EditOutlined onClick={()=>{
+              setEdit(record)
+              setIsModalOpen(true)
+            }} 
+            className='btn btn-primary' 
+          />
+          
+          <DeleteOutlined className='btn btn-danger'/>
+        </div>
+      )
     }
   ]
 
@@ -120,7 +143,10 @@ const Home = () => {
                 className={`mx-2 fs-5  ${ViewData!=='table'? 'text-primary': 'text-secondary'}`}/> 
           </div>
         <div>
-          <button onClick={()=>setIsModalOpen(true)}
+          <button onClick={()=>{
+            // setEdit(null)  
+            setIsModalOpen(true)}
+          }
            className='btn btn-primary'>
             Add New
           </button>
@@ -135,15 +161,19 @@ const Home = () => {
         }
       </div>
       <Modal 
-        title='Add Transaction' 
+        title={Edit ? 'Edit Transaction' : 'Add Transaction'} 
         open={IsModalOpen} 
         footer={false}
         // onOk={handlerOk}
-        onCancel={()=>setIsModalOpen(false)
+        onCancel={()=>{
+          setIsModalOpen(false)
+          // setEdit(null)
+        }
         }>
           <Form 
             layout='vertical'
             onFinish={handleSubmitForm}
+            initialValues={Edit}
           >
             <Form.Item label='Amount' name='amount'>
               <Input type='text'/>

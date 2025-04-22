@@ -6,7 +6,8 @@ const router = express.Router();
 //Import Controllers:
 const { 
     getAllTransactionCtrl, 
-    addTransactionCtrl, 
+    addTransactionCtrl,
+    editTransactionCtrl, 
 } = require('../controllers/transactionCtrl');
 
 
@@ -16,6 +17,9 @@ router.post('/getAllTransaction',getAllTransactionCtrl)
 
 //todo: -------------- Post || Add Transaction Route -----------------
 router.post('/addTransaction',addTransactionCtrl)
+
+//todo: -------------- Put || Edit Transaction Route -----------------
+router.put('/editTransaction',editTransactionCtrl)
 
 //export:
 module.exports = router;

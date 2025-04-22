@@ -49,9 +49,28 @@ const addTransactionCtrl = async(req, res)=>{
     }
 }
 
+//todo: ------------------ Edit Transaction Ctrl ----------------
+const editTransactionCtrl = async(req, res)=>{
+    try {
+        await transactionModel.findByIdAndUpdate(
+            {_id: req.body.transactionId},
+            req.body.payload
+        )
+        res.status(200).json({message:'Transaction Edited Successfully'})
+        
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message:"Internal server error !!",
+            error:error
+        });
+    }
+}
+
 //Export:
 module.exports = {
     getAllTransactionCtrl,
     addTransactionCtrl,
+    editTransactionCtrl,
 }
 
