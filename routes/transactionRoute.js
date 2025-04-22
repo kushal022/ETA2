@@ -7,7 +7,8 @@ const router = express.Router();
 const { 
     getAllTransactionCtrl, 
     addTransactionCtrl,
-    editTransactionCtrl, 
+    editTransactionCtrl,
+    deleteTransactionCtrl, 
 } = require('../controllers/transactionCtrl');
 
 
@@ -20,6 +21,9 @@ router.post('/addTransaction',addTransactionCtrl)
 
 //todo: -------------- Put || Edit Transaction Route -----------------
 router.put('/editTransaction',editTransactionCtrl)
+
+//todo: -------------- Delete || Delete Transaction Route -----------------
+router.post('/deleteTransaction', deleteTransactionCtrl)
 
 //export:
 module.exports = router;

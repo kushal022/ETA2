@@ -17,7 +17,7 @@ const Home = () => {
   const [ViewData, setViewData] = useState('table')
   const [Edit, setEdit] = useState(null)
 
-  //Form Submit: Add transaction 
+  //todo: Form Submit: Add transaction 
   const handleSubmitForm = async (values)=>{
     try {
       const user = JSON.parse(localStorage.getItem('user'))
@@ -46,8 +46,22 @@ const Home = () => {
     }
   }
 
-  //Get all transactions:
+  //todo___ Delete transaction:
+  const handleDeleteTransaction = async(record)=>{
+    try {
+      setLoading(true)
+      const res = await axios.post('http://localhost:3500/api/v1/transaction/deleteTransaction',
+        {transactionId: record._id}
+      )
+      message.success(res.data.message)
+      setLoading(false)
 
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  //todo: Get all transactions:
   useEffect(()=>{
     const handlerGetAllTransaction =async()=>{
       try {
@@ -98,7 +112,9 @@ const Home = () => {
             className='btn btn-primary' 
           />
           
-          <DeleteOutlined className='btn btn-danger'/>
+          <DeleteOutlined 
+            onClick={()=>handleDeleteTransaction(record)} 
+            className='btn btn-danger'/>
         </div>
       )
     }
@@ -210,7 +226,6 @@ const Home = () => {
               <button type='submit' className='btn btn-primary' >SAVE</button>
             </div>
           </Form>
-
       </Modal>
     </Layout>
   )
