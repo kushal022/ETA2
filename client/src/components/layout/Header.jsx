@@ -47,9 +47,9 @@ const Header = () => {
             </Link>
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link to='/' className="nav-link active" aria-current="page">
+                {/* <Link to='/' className="nav-link active" aria-current="page">
                   Home
-                </Link>
+                </Link> */}
               </li>
             </ul>
             <div className="h-100 d-flex gap-4 align-items-center justify-content-center ">

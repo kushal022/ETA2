@@ -85,24 +85,41 @@ const Home = () => {
     {
       title:'Date',
       dataIndex:'date',
+      key:'date',
       render: (text)=> <span>{moment(text).format('YYYY-MM-DD')}</span>
     },{
       title:'Amount',
-      dataIndex:'amount'
+      dataIndex:'amount',
+      key:'amount',
+      render:(text,record)=>(
+        <div className = {`${record.type ==='income'?'text-success':'text-danger'} d-flex align-items-center`}>
+          {record.amount}
+        </div>
+      )
     },{
       title:'Type',
-      dataIndex:'type'
+      dataIndex:'type',
+      key:'type',
+      render:(text,record)=>(
+          <div className = {`${record.type ==='income'?'text-success':'text-danger'} d-flex align-items-center`}>
+            {record.type}
+          </div>
+      )
     },{
       title:'Category',
-      dataIndex:'category'
+      dataIndex:'category',
+      key:'category',
     },{
       title:'Reference',
-      dataIndex:'reference'
+      dataIndex:'reference',
+      key:'reference',
     },{
       title:'Description',
-      dataIndex:'description'
+      dataIndex:'description',
+      key:'description',
     },{
       title:'Actions',
+      key:'actions',
       render: (text,record) =>(
         <div className='d-flex gap-5'>
           <EditOutlined onClick={()=>{
@@ -122,7 +139,7 @@ const Home = () => {
 
   return (
     <Layout className=''>
-      <div className="w-100 d-flex flex-column align-items-center justify-content-center">
+      <div className="w-100 h-100 d-flex flex-column align-items-center justify-content-center">
         <div className=" card w-75 my-3 ">
           <div className="filters d-flex align-items-center justify-content-between py-3 px-4 shadow ">
         <div className='w-25'>
@@ -175,7 +192,9 @@ const Home = () => {
             <div className="content">
             {
               ViewData==='table'? 
-              <Table columns={columns} dataSource={AllTransactions}/>
+              <Table 
+                columns={columns}
+                dataSource={AllTransactions}/>
               :
               <Chart allTransactions={AllTransactions}/>
             }
