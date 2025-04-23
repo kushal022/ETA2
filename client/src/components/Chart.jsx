@@ -35,15 +35,15 @@ const Chart = ({allTransactions}) => {
     <>  
         {/* ----------- Transactions --------------------- */}
         <div className="row m-3">
-            <div className="col-md-4">
+            <div className="col-md-3">
                 <div className="card">
                     <div className="card-header">
                         Total Transaction : {totalTransaction} 
                     </div>
-                    <div className="card-body">
+                    <div className="card-body d-flex flex-column align-items-center">
                         <h5 className='text-success'>Income : {totalIncomeTransaction.length}</h5>
                         <h5 className='text-danger'>Expense : {totalExpenseTransaction.length}</h5>
-                        <div>
+                        <div className='d-flex flex-column'>
                             <Progress 
                                 type='circle' 
                                 strokeColor={'green'}
@@ -61,15 +61,15 @@ const Chart = ({allTransactions}) => {
                 </div>
             </div>
             {/* ---------------------------- */}
-            <div className="col-md-4">
+            <div className="col-md-3">
                 <div className="card">
                     <div className="card-header">
                         Total Turnover : {totalTurnover} 
                     </div>
-                    <div className="card-body">
+                    <div className="card-body d-flex flex-column align-items-center">
                         <h5 className='text-success'>Income : {totalIncomeTurnover}</h5>
                         <h5 className='text-danger'>Expense : {totalExpenseTurnover}</h5>
-                        <div>
+                        <div  className='d-flex flex-column'>
                             <Progress 
                                 type='circle' 
                                 strokeColor={'green'}
@@ -86,11 +86,11 @@ const Chart = ({allTransactions}) => {
                     </div>
                 </div>
             </div>
-        </div>
+        {/* </div> */}
         {/* ----------- Transactions Category wise --------------------- */}
-        <div className="row m-3">
-            <div className="col-md-4">
-                <h4>Categorywise Income</h4>
+        {/* <div className="row m-3"> */}
+            <div className="col-md-3">
+                <h4 className='card-header'>Categorywise Income</h4>
                 {
                     categories.map(cat => {
                         const amount = allTransactions
@@ -111,8 +111,8 @@ const Chart = ({allTransactions}) => {
                 }
             </div>
         {/* -------------------------------- */}
-            <div className="col-md-4">
-                <h4>Categorywise Expense</h4>
+            <div className="col-md-3">
+                <h4 className='card-header'>Categorywise Expense</h4>
                 {
                     categories.map(cat => {
                         const amount = allTransactions

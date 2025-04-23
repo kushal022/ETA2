@@ -121,11 +121,13 @@ const Home = () => {
   ]
 
   return (
-    <Layout>
-      <div className="filters d-flex align-items-center justify-content-between py-3 px-4 shadow ">
-        <div>
+    <Layout className=''>
+      <div className="w-100 d-flex flex-column align-items-center justify-content-center">
+        <div className=" card w-75 my-3 ">
+          <div className="filters d-flex align-items-center justify-content-between py-3 px-4 shadow ">
+        <div className='w-25'>
           <h6>Select Frequency</h6>
-          <Select value={Freq} onChange={(value)=>setFreq(value)}>
+          <Select value={Freq} onChange={(value)=>setFreq(value)} className='w-100'>
             <Select.Option value='7'>Last 1 Week</Select.Option>
             <Select.Option value='30'>Last 1 Month</Select.Option>
             <Select.Option value='365'>Last 1 Year</Select.Option>
@@ -138,9 +140,9 @@ const Home = () => {
             />
           }
         </div>
-        <div>
-          <h6>Select Type</h6>
-          <Select value={type} onChange={(value)=>setType(value)}>
+        <div className='w-25'>
+          <h6 className=''>Select Type</h6>
+          <Select value={type} onChange={(value)=>setType(value)} className='w-100'>
             <Select.Option value='all'>ALL</Select.Option>
             <Select.Option value='income'>INCOME</Select.Option>
             <Select.Option value='expense'>EXPENSE</Select.Option>
@@ -152,7 +154,7 @@ const Home = () => {
             />
           }
         </div>
-        <div className='mx-2 p-2 shadow-sm border border-black border-1 rounded-1'>
+        <div className='mx-2 p-2 shadow-sm border border border-1 rounded-1'>
             <UnorderedListOutlined onClick={()=>setViewData('table')}  
                 className={`mx-2 fs-5  ${ViewData==='table'? 'text-primary': 'text-secondary'}`}/>
             <AreaChartOutlined onClick={()=>setViewData('chart')} 
@@ -167,14 +169,18 @@ const Home = () => {
             Add New
           </button>
         </div>
-      </div>
-      <div className="content">
-        {
-          ViewData==='table'? 
-          <Table columns={columns} dataSource={AllTransactions}/>
-          :
-          <Chart allTransactions={AllTransactions}/>
-        }
+          </div>
+        </div>
+        <div className="card card-body w-75 mb-4">
+            <div className="content">
+            {
+              ViewData==='table'? 
+              <Table columns={columns} dataSource={AllTransactions}/>
+              :
+              <Chart allTransactions={AllTransactions}/>
+            }
+            </div>
+        </div>
       </div>
       <Modal 
         title={Edit ? 'Edit Transaction' : 'Add Transaction'} 

@@ -38,10 +38,11 @@ const Register = () => {
 
   return (
     <>
-        <div className="register-page vh-100 d-flex justify-content-center align-items-center h">
+        <div className="register-page vh-100 d-flex justify-content-center align-items-center">
             {Loading ? <Loader/> : 
-            <Form layout='vertical' onFinish={handlerSubmit} className='w-25'>
-              <h1>Register</h1>
+            <div className="card shadow-lg w-50 d-flex justify-content-center align-items-center">
+            <Form layout='vertical' onFinish={handlerSubmit} className='w-50 px-5 py-3'>
+              <h1 className='card-title text-center py-1 fw-bold'>Register</h1>
               <Form.Item label="Name" name="username">
                 <Input type='text'/>
               </Form.Item>
@@ -55,7 +56,8 @@ const Register = () => {
                 <button className='btn btn-primary px-5'>Register</button>
                 <Link to="/login" >Already Registered ? Login</Link>
               </div>
-            </Form>}
+            </Form>
+            </div>}
         </div>
     </>
   )
