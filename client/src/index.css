@@ -5,5 +5,11 @@
 }
 
 .content{
-    height: 91vh;
+    height: 100%;
+}
+
+.logo{
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
 }

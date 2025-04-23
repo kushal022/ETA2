@@ -18,10 +18,11 @@ const Login = () => {
       )
       setLoading(false)
       console.log(res)
-      localStorage.setItem('id',res.data.id)
-      localStorage.setItem('username',res.data.username)
-      localStorage.setItem('email',res.data.email)
-      localStorage.setItem('token',res.data.token)
+      // localStorage.setItem('id',res.data.id)
+      // localStorage.setItem('username',res.data.username)
+      // localStorage.setItem('email',res.data.email)
+      // localStorage.setItem('token',res.data.token)
+      localStorage.setItem('user',JSON.stringify(res.data))
       message.success(res.data.message)
       navigate('/')
     } catch (error) {
@@ -34,17 +35,18 @@ const Login = () => {
 
   //Prevent for login user if logged in:
     useEffect(()=>{
-      if(localStorage.getItem('username')){
+      if(localStorage.getItem('user')){
         navigate('/')
       }
     },[navigate])
 
   return (
     <>
-        <div className="register-page vh-100 d-flex justify-content-center align-items-center h">
-            {Loading && <Loader/>}
-            <Form layout='vertical' onFinish={handlerSubmit} className='w-25'>
-              <h1>Login</h1>
+        <div className="register-page vh-100 d-flex justify-content-center align-items-center">
+            {Loading ? <Loader/>:
+            <div className="card w-25 shadow-lg">
+            <Form layout='vertical' onFinish={handlerSubmit} className='w-100 px-5 py-3'>
+              <h1 className='card-title text-center py-1 fw-bold'>Login</h1>
               <Form.Item label="Email" name="email">
                 <Input type='email'/>
               </Form.Item>
@@ -56,6 +58,7 @@ const Login = () => {
                 <Link to="/register" >Not a user ? Register</Link>
               </div>
             </Form>
+        </div>}
         </div>
     </>
   )
