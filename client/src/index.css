@@ -3,7 +3,9 @@
     margin: 0;
     box-sizing: border-box;
 }
-
+.layout{
+    height: 90vh;
+}
 .content{
     height: 100%;
 }

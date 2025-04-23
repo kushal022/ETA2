@@ -92,13 +92,13 @@ const Chart = ({allTransactions}) => {
             <div className="col-md-3">
                 <h4 className='card-header'>Categorywise Income</h4>
                 {
-                    categories.map(cat => {
+                    categories.map((cat,i) => {
                         const amount = allTransactions
                             .filter(transaction => transaction.type === 'income' && transaction.category === cat)
                             .reduce((acc,transaction)=> acc + transaction.amount, 0);
                         return (
                             amount > 0 && (
-                            <div className="card mt-3">
+                            <div className="card mt-3" key={i}>
                                 <div className="card-body">
                                     <h5>{cat}</h5>
                                     <Progress
@@ -114,13 +114,13 @@ const Chart = ({allTransactions}) => {
             <div className="col-md-3">
                 <h4 className='card-header'>Categorywise Expense</h4>
                 {
-                    categories.map(cat => {
+                    categories.map((cat,i) => {
                         const amount = allTransactions
                             .filter(transaction =>transaction.type === 'expense' && transaction.category === cat)
                             .reduce((acc,transaction)=> acc + transaction.amount, 0);
                         return (
                             amount > 0 && (
-                            <div className="card mt-3">
+                            <div className="card mt-3" key={i}>
                                 <div className="card-body">
                                     <h5>{cat}</h5>
                                     <Progress
