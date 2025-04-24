@@ -55,7 +55,7 @@ const Header = () => {
             <div className="h-100 d-flex gap-4 align-items-center justify-content-center ">
               { IsLogIn ? 
               <div className="h-100 d-flex gap-4 align-items-center justify-content-center">
-                <p className="text-capitalize text-success fw-bold">Welcome {User}</p>
+                <div className="text-capitalize text-dark fw-bold text-capitalize">Welcome<span style={{textTransform: 'uppercase'}} className="ps-2 text-success">{User}</span></div>
                 <button onClick={handlerLogOut} className="btn btn-dark">Logout</button>
               </div>:<>
                 <button className="btn btn-dark">Login</button>
