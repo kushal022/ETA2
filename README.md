@@ -18,7 +18,7 @@ A full-stack expense tracking application built with MongoDB, Express.js, React,
 **Frontend:**
 - React.js
 - Ant design (React)
-- Bootsrap CSS (styling)
+- Bootstrap CSS (styling)
 - Axios (API calls)
 
 **Backend:**
