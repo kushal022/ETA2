@@ -14,7 +14,7 @@ const Register = () => {
   const handlerSubmit = async(values)=>{
     try {
       setLoading(true)
-      const res = await axios.post('http://localhost:3500/api/v1/user/register',
+      const res = await axios.post('/api/v1/user/register',
         values,
       )
       setLoading(false)

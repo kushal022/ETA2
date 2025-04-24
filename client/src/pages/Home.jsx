@@ -23,7 +23,7 @@ const Home = () => {
       const user = JSON.parse(localStorage.getItem('user'))
       setLoading(true)
       if(Edit){
-        const res = await axios.put('http://localhost:3500/api/v1/transaction/editTransaction',
+        const res = await axios.put('/api/v1/transaction/editTransaction',
           {
             payload: {...values, userId: user.id},
             transactionId: Edit._id
@@ -31,7 +31,7 @@ const Home = () => {
         message.success(res.data.message)
         setLoading(false)
       }else{
-        const res = await axios.post('http://localhost:3500/api/v1/transaction/addTransaction',
+        const res = await axios.post('/api/v1/transaction/addTransaction',
           {...values, userId: user.id}
         );
         message.success(res.data.message)
@@ -50,7 +50,7 @@ const Home = () => {
   const handleDeleteTransaction = async(record)=>{
     try {
       setLoading(true)
-      const res = await axios.post('http://localhost:3500/api/v1/transaction/deleteTransaction',
+      const res = await axios.post('/api/v1/transaction/deleteTransaction',
         {transactionId: record._id}
       )
       message.success(res.data.message)
@@ -67,7 +67,7 @@ const Home = () => {
       try {
         setLoading(true);
         const user = JSON.parse(localStorage.getItem('user'))
-        const res = await axios.post('http://localhost:3500/api/v1/transaction/getAllTransaction',
+        const res = await axios.post('/api/v1/transaction/getAllTransaction',
           {userId: user.id,Freq,selectDate,type}
         )
         // console.log(res.data)
