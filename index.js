@@ -17,7 +17,14 @@ connectDb();
 
 //Middlewares:
 app.use(morgan('dev'))
-app.use(cors());
+app.use(cors(
+    {
+        origin: 'http://localhost:5173',
+        methods: ['GET', 'POST', 'PUT','DELETE'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
+        credentials: true
+      }
+));
 app.use(express.json());
 
 //import routes:
@@ -33,11 +40,11 @@ app.use('/api/v1/user', userRoutes);
 app.use('/api/v1/transaction', transactionRoutes);
 
 
-//todo: ------------- Static Files ------------------
-app.use(express.static(path.join(__dirname,'./client/dist')));
-app.get('*',(req,res)=>{
-    res.sendFile(path.join(__dirname,'./client/dist/index.html'))
-});
+// //todo: ------------- Static Files ------------------
+// app.use(express.static(path.join(__dirname,'./client/dist')));
+// app.get('*',(req,res)=>{
+//     res.sendFile(path.join(__dirname,'./client/dist/index.html'))
+// });
 
 
 //Server Listen
