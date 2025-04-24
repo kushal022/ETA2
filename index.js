@@ -6,6 +6,8 @@ const colors = require('colors');
 const dotenv = require('dotenv');
 const connectDb = require('./config/connectDb');
 
+const path = require('path') // for static file
+
 
 dotenv.config();
 const PORT = process.env.PORT || 3500;
@@ -29,6 +31,14 @@ app.get('/',(req,res)=>{
 
 app.use('/api/v1/user', userRoutes);
 app.use('/api/v1/transaction', transactionRoutes);
+
+
+//todo: ------------- Static Files ------------------
+app.use(express.static(path.join(__dirname,'./client/dist')));
+app.get('*',(req,res)=>{
+    res.sendFile(path.join(__dirname,'./client/dist/index.html'))
+});
+
 
 //Server Listen
 app.listen(PORT , ()=>{
