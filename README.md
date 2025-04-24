@@ -39,7 +39,7 @@ A full-stack expense tracking application built with MongoDB, Express.js, React,
 1. Clone the repository:
 ```bash
 git clone https://github.com/kushal022/ETA2.git
-cd expense-tracker-mern
+cd ETA2
 ```
 2. Set up backend:
 ```bash
