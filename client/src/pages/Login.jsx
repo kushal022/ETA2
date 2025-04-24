@@ -52,10 +52,10 @@ const Login = () => {
             <Form layout='vertical' onFinish={handlerSubmit} className='w-md-25 align-self-center  '>
               <h1 className='card-title text-center py-1 fw-bold'>Login</h1>
               <Form.Item label="Email" name="email">
-                <Input type='email'/>
+                <Input type='email' required/>
               </Form.Item>
               <Form.Item label="Password" name="password">
-                <Input type='password'/>
+                <Input type='password' required/>
               </Form.Item>
               <div className="d-flex gap-4 align-items-center ">
                 <Link to="/register" >Not a user ? Register</Link>

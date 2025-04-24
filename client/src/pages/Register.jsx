@@ -47,13 +47,13 @@ const Register = () => {
             <Form layout='vertical' onFinish={handlerSubmit} className='w-50 px-md-5 py-4'>
               <h1 className='card-title text-center py-1 fw-bold'>Register</h1>
               <Form.Item label="Name" name="username">
-                <Input type='text'/>
+                <Input type='text' required/>
               </Form.Item>
               <Form.Item label="Email" name="email">
-                <Input type='email'/>
+                <Input type='email' required/>
               </Form.Item>
               <Form.Item label="Password" name="password">
-                <Input type='password'/>
+                <Input type='password' required/>
               </Form.Item>
               <div className="d-flex flex-column gap-2 align-items-center">
                 <button className='btn btn-secondary px-5'>Register</button>

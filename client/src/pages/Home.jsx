@@ -190,7 +190,7 @@ const Home = () => {
         </div>
         <div className="content w-75">
             <div className=" card card-body  mb-4">
-            {
+            { loading && 
               ViewData==='table'?
               <Table
                 scroll={{ x: 'max-content' }}
