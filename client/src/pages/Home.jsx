@@ -23,7 +23,7 @@ const Home = () => {
       const user = JSON.parse(localStorage.getItem('user'))
       setLoading(true)
       if(Edit){
-        const res = await axios.put('http://localhost:3500/api/v1/transaction/editTransaction',
+        const res = await axios.put('/api/v1/transaction/editTransaction',
           {
             payload: {...values, userId: user.id},
             transactionId: Edit._id
@@ -31,7 +31,7 @@ const Home = () => {
         message.success(res.data.message)
         setLoading(false)
       }else{
-        const res = await axios.post('http://localhost:3500/api/v1/transaction/addTransaction',
+        const res = await axios.post('/api/v1/transaction/addTransaction',
           {...values, userId: user.id}
         );
         message.success(res.data.message)
@@ -50,7 +50,7 @@ const Home = () => {
   const handleDeleteTransaction = async(record)=>{
     try {
       setLoading(true)
-      const res = await axios.post('http://localhost:3500/api/v1/transaction/deleteTransaction',
+      const res = await axios.post('/api/v1/transaction/deleteTransaction',
         {transactionId: record._id}
       )
       message.success(res.data.message)
@@ -67,7 +67,7 @@ const Home = () => {
       try {
         setLoading(true);
         const user = JSON.parse(localStorage.getItem('user'))
-        const res = await axios.post('http://localhost:3500/api/v1/transaction/getAllTransaction',
+        const res = await axios.post('/api/v1/transaction/getAllTransaction',
           {userId: user.id,Freq,selectDate,type}
         )
         // console.log(res.data)
@@ -101,7 +101,7 @@ const Home = () => {
       dataIndex:'type',
       key:'type',
       render:(text,record)=>(
-          <div className = {`${record.type ==='income'?'text-success':'text-danger'} d-flex align-items-center`}>
+          <div className = {`${record.type ==='income'?'text-success':'text-danger'} d-flex text-capitalize  align-items-center`}>
             {record.type}
           </div>
       )
@@ -138,62 +138,64 @@ const Home = () => {
   ]
 
   return (
-    <Layout className=''>
-      <div className="w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+    <Layout className='vh-100'>
+      <div className="w-100 d-flex flex-column align-items-center justify-content-center">
         <div className=" card w-75 my-3 ">
-          <div className="filters d-flex align-items-center justify-content-between py-3 px-4 shadow ">
-        <div className='w-25'>
-          <h6>Select Frequency</h6>
-          <Select value={Freq} onChange={(value)=>setFreq(value)} className='w-100'>
-            <Select.Option value='7'>Last 1 Week</Select.Option>
-            <Select.Option value='30'>Last 1 Month</Select.Option>
-            <Select.Option value='365'>Last 1 Year</Select.Option>
-            <Select.Option value='custom'>Custom</Select.Option>
-          </Select>
-          {Freq === 'custom' &&
-            <RangePicker 
-              value={selectDate} 
-              onChange={(value)=>setSelectDate(value)}
-            />
-          }
-        </div>
-        <div className='w-25'>
-          <h6 className=''>Select Type</h6>
-          <Select value={type} onChange={(value)=>setType(value)} className='w-100'>
-            <Select.Option value='all'>ALL</Select.Option>
-            <Select.Option value='income'>INCOME</Select.Option>
-            <Select.Option value='expense'>EXPENSE</Select.Option>
-          </Select>
-          {Freq === 'custom' &&
-            <RangePicker 
-              value={selectDate} 
-              onChange={(value)=>setSelectDate(value)}
-            />
-          }
-        </div>
-        <div className='mx-2 p-2 shadow-sm border border border-1 rounded-1'>
-            <UnorderedListOutlined onClick={()=>setViewData('table')}  
-                className={`mx-2 fs-5  ${ViewData==='table'? 'text-primary': 'text-secondary'}`}/>
-            <AreaChartOutlined onClick={()=>setViewData('chart')} 
-                className={`mx-2 fs-5  ${ViewData!=='table'? 'text-primary': 'text-secondary'}`}/> 
+        <div className="filters d-flex flex-wrap gap-3 align-items-center justify-content-between py-3 px-4 shadow ">
+            <div className='w-25'>
+              <h6>Select Frequency</h6>
+              <Select value={Freq} onChange={(value)=>setFreq(value)} className='w-100'>
+                <Select.Option value='7'>Last 1 Week</Select.Option>
+                <Select.Option value='30'>Last 1 Month</Select.Option>
+                <Select.Option value='365'>Last 1 Year</Select.Option>
+                <Select.Option value='custom'>Custom</Select.Option>
+              </Select>
+              {Freq === 'custom' &&
+                <RangePicker 
+                  value={selectDate} 
+                  onChange={(value)=>setSelectDate(value)}
+                />
+              }
+            </div>
+            <div className='w-25'>
+              <h6 className=''>Select Type</h6>
+              <Select value={type} onChange={(value)=>setType(value)} className='w-100'>
+                <Select.Option value='all'>ALL</Select.Option>
+                <Select.Option value='income'>INCOME</Select.Option>
+                <Select.Option value='expense'>EXPENSE</Select.Option>
+              </Select>
+              {Freq === 'custom' &&
+                <RangePicker 
+                  value={selectDate} 
+                  onChange={(value)=>setSelectDate(value)}
+                />
+              }
+            </div>
+            <div className='mx-2 p-2 shadow-sm border border border-1 rounded-1'>
+                <UnorderedListOutlined onClick={()=>setViewData('table')}  
+                    className={`mx-2 fs-5  ${ViewData==='table'? 'text-primary': 'text-secondary'}`}/>
+                <AreaChartOutlined onClick={()=>setViewData('chart')} 
+                    className={`mx-2 fs-5  ${ViewData!=='table'? 'text-primary': 'text-secondary'}`}/> 
+            </div>
+            <div>
+              <button onClick={()=>{
+                // setEdit(null)  
+                setIsModalOpen(true)}
+              }
+               className='btn btn-primary'>
+                Add New
+              </button>
+            </div>
           </div>
-        <div>
-          <button onClick={()=>{
-            // setEdit(null)  
-            setIsModalOpen(true)}
-          }
-           className='btn btn-primary'>
-            Add New
-          </button>
         </div>
-          </div>
-        </div>
-        <div className="card card-body w-75 mb-4">
-            <div className="content">
-            {
-              ViewData==='table'? 
-              <Table 
+        <div className="content w-75">
+            <div className=" card card-body  mb-4">
+            { loading && 
+              ViewData==='table'?
+              <Table
+                scroll={{ x: 'max-content' }}
                 columns={columns}
+                className=''
                 dataSource={AllTransactions}/>
               :
               <Chart allTransactions={AllTransactions}/>

@@ -14,7 +14,7 @@ const Register = () => {
   const handlerSubmit = async(values)=>{
     try {
       setLoading(true)
-      const res = await axios.post('http://localhost:3500/api/v1/user/register',
+      const res = await axios.post('/api/v1/user/register',
         values,
       )
       setLoading(false)
@@ -38,22 +38,25 @@ const Register = () => {
 
   return (
     <>
-        <div className="register-page vh-100 d-flex justify-content-center align-items-center">
+        <div className="register-page vh-100 w-100 d-flex justify-content-center align-items-center">
             {Loading ? <Loader/> : 
-            <div className="card shadow-lg w-50 d-flex justify-content-center align-items-center">
-            <Form layout='vertical' onFinish={handlerSubmit} className='w-50 px-5 py-3'>
+            <div className="card bg-body-secondary shadow-lg w-md-75 h-md-75 d-flex flex-sm-column flex-md-row justify-content-center align-items-center">
+              <div className='h-100 w-md-75'>
+                <img className='w-100 h-100 img-fluid' src="https://www.65ymas.com/uploads/s1/45/10/00/dinero_1_621x621.jpeg" alt="" />
+              </div>
+            <Form layout='vertical' onFinish={handlerSubmit} className='w-50 px-md-5 py-4'>
               <h1 className='card-title text-center py-1 fw-bold'>Register</h1>
               <Form.Item label="Name" name="username">
-                <Input type='text'/>
+                <Input type='text' required/>
               </Form.Item>
               <Form.Item label="Email" name="email">
-                <Input type='email'/>
+                <Input type='email' required/>
               </Form.Item>
               <Form.Item label="Password" name="password">
-                <Input type='password'/>
+                <Input type='password' required/>
               </Form.Item>
               <div className="d-flex flex-column gap-2 align-items-center">
-                <button className='btn btn-primary px-5'>Register</button>
+                <button className='btn btn-secondary px-5'>Register</button>
                 <Link to="/login" >Already Registered ? Login</Link>
               </div>
             </Form>
