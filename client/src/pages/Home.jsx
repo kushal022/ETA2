@@ -138,8 +138,8 @@ const Home = () => {
   ]
 
   return (
-    <Layout className=''>
-      <div className="w-100 vh-100 d-flex flex-column align-items-center justify-content-center">
+    <Layout className='vh-100'>
+      <div className="w-100 d-flex flex-column align-items-center justify-content-center">
         <div className=" card w-75 my-3 ">
         <div className="filters d-flex flex-wrap gap-3 align-items-center justify-content-between py-3 px-4 shadow ">
             <div className='w-25'>
@@ -188,13 +188,14 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className="card card-body w-75 mb-4">
-            <div className="content">
+        <div className="content w-75">
+            <div className=" card card-body  mb-4">
             {
               ViewData==='table'?
               <Table
                 scroll={{ x: 'max-content' }}
                 columns={columns}
+                className=''
                 dataSource={AllTransactions}/>
               :
               <Chart allTransactions={AllTransactions}/>
