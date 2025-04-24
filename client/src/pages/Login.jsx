@@ -42,10 +42,14 @@ const Login = () => {
 
   return (
     <>
-        <div className="register-page vh-100 d-flex justify-content-center align-items-center">
-            {Loading ? <Loader/>:
-            <div className="card w-25 shadow-lg">
-            <Form layout='vertical' onFinish={handlerSubmit} className='w-100 px-5 py-3'>
+        <div className="register-page vh-100 d-flex flex-column justify-content-center align-items-center">
+            {Loading ? <Loader/>:<>
+              <h2 className='fs-1 fw-bold mb-3'>Expense Tracker System - MERN</h2>
+            <div className="card w-75 h-75 shadow-lg d-flex flex-column flex-md-row gap-4 bg-body-secondary">
+              <div>
+                <img className='h-100 w-100 img-fluid ' src="https://static.vecteezy.com/system/resources/previews/000/545/109/original/expense-word-lettering-illustration-vector.jpg" alt="" />
+              </div>
+            <Form layout='vertical' onFinish={handlerSubmit} className='w-md-25 align-self-center  '>
               <h1 className='card-title text-center py-1 fw-bold'>Login</h1>
               <Form.Item label="Email" name="email">
                 <Input type='email'/>
@@ -53,12 +57,12 @@ const Login = () => {
               <Form.Item label="Password" name="password">
                 <Input type='password'/>
               </Form.Item>
-              <div className="d-flex flex-column gap-2 align-items-center">
-                <button className='btn btn-primary px-5'>Login</button>
+              <div className="d-flex gap-4 align-items-center ">
                 <Link to="/register" >Not a user ? Register</Link>
+                <button className='btn btn-secondary px-5'>Login</button>
               </div>
             </Form>
-        </div>}
+        </div></>}
         </div>
     </>
   )
